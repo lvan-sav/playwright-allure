@@ -13,7 +13,7 @@ import { devices } from '@playwright/test';
 const config: PlaywrightTestConfig = {
   testDir: '../tests',
   /* Maximum time one test can run for. */
-  timeout: 30 * 1000,
+  timeout: 50 * 1000,
   expect: {
     /**
      * Maximum time expect() should wait for the condition to be met.
@@ -38,7 +38,7 @@ const config: PlaywrightTestConfig = {
   use: {
     viewport: { width: 1920, height: 1080 },
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
-    actionTimeout: 10000,
+    actionTimeout: 0,
     ignoreHTTPSErrors: true,
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: 'https://telnyx.com/',
