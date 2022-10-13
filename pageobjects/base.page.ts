@@ -2,7 +2,10 @@ import { Locator, Page } from '@playwright/test';
 
 
 const cookiePopupClsBtn = 'button[aria-label="close and deny"]'
-const talkToExpertsBtnLoc = 'li [href="/contact-us"]'
+
+const talkToExpertsBtnLoc = 'header li [href="/contact-us"]'
+
+const footerReportAbuseLinkLoc = 'footer [href="/report-abuse"]'
 
 export class BasePage {
     readonly page: Page;
@@ -27,5 +30,12 @@ export class BasePage {
 
         await talkToExpertsBtn.hover()
         await talkToExpertsBtn.click()
+    }
+
+    async clickFootReportAbuseLink () {
+        const footerReportAbuseLink: Locator = this.page.locator(footerReportAbuseLinkLoc)
+
+        await footerReportAbuseLink.hover()
+        await footerReportAbuseLink.click()
     }
 }

@@ -1,8 +1,9 @@
-import { test, expect, Page } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker'
 import { MainPage } from '../pageobjects/main.page'
 import { SignUpPage, VerifyEmailPage } from '../pageobjects/sign.up.pages';
 import { ContactUsPage } from '../pageobjects/contact.us.page';
+import { ReportAbusePage } from '../pageobjects/report.abuse.page'
 
 
 test.beforeEach(async ({ page }) => {
@@ -12,7 +13,7 @@ test.beforeEach(async ({ page }) => {
     await mainPage.closeCookiePopup()
 })
 
-test.describe('Sign up and "Contact Us" and "Report Abuse" cases', () => {
+test.describe('Sign up, "Contact Us" and "Report Abuse" cases', () => {
     test('Sign up after click "Try it for free" button on the main page by\
  filling in in required fields with random valid data', async ({ page }) => {
         const mainPage = new MainPage(page)
@@ -107,4 +108,38 @@ test.describe('Sign up and "Contact Us" and "Report Abuse" cases', () => {
         await expect(contactUsPage.websiteInp).toHaveValue(randWebSite)
         await expect(contactUsPage.addInfoInp).toHaveValue(randText)
     });
+
+    test('Send report abuse link from the Main page', async ({ page }) => {
+        const mainPage = new MainPage(page)
+        const reportAbusePage = new ReportAbusePage(page)
+
+        await mainPage.clickFootReportAbuseLink()
+
+        const randSubject = faker.word.adverb()
+        const randAbusiveNum = faker.phone.number('+##-###-###-###')
+        const randAbusedNum = faker.phone.number('+##-###-###-###')
+        const randFullName = faker.name.fullName()
+        const randEmail = faker.internet.email()
+        const randAddInfo = faker.lorem.sentences(2)
+
+        await reportAbusePage.fillAllFields (
+            randSubject,
+            randAbusiveNum,
+            randAbusedNum,
+            randFullName,
+            randEmail,
+            randAddInfo
+        )
+
+        await expect(reportAbusePage.subjectInp).toHaveValue(randSubject)
+        await expect(reportAbusePage.phoneAbusiveInp).toHaveValue(randAbusiveNum)
+        await expect(reportAbusePage.phoneAbusedInp).toHaveValue(randAbusedNum)
+        await expect(reportAbusePage.abusedDateTimeCalendar).toBeVisible()
+        await expect(reportAbusePage.voiceBox).toBeChecked()
+        await expect(reportAbusePage.smsBox).toBeChecked()
+        await expect(reportAbusePage.nameInp).toHaveValue(randFullName)
+        await expect(reportAbusePage.emailInp).toHaveValue(randEmail)
+        await expect(reportAbusePage.addInfoInp).toHaveValue(randAddInfo)
+        await expect(reportAbusePage.submitBtn).toBeEnabled()
+    })
 })
