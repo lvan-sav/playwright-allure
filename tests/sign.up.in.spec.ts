@@ -65,7 +65,7 @@ test.describe('Sign up, "Contact Us" and "Report Abuse" cases', () => {
         await expect(signUpPage.formErrorMsg).toHaveText(/^One or more fields are not valid. Please update these fields and try again/)        
     });
 
-    test.only('Login in the Telnyx website with blocked account with valid data on the Main page', async ({ page }) => {
+    test('Login in the Telnyx website with blocked account with valid data on the Main page', async ({ page }) => {
         const mainPage = new MainPage(page)
         const loginPage = new LoginPage(page)
         
@@ -82,8 +82,24 @@ test.describe('Sign up, "Contact Us" and "Report Abuse" cases', () => {
 
         await loginPage.clickLoginBtn()
 
-        await expect(loginPage.accBlockErrorMsg).toBeVisible()
+        await expect(loginPage.accBlockErrorMsg).toBeVisible()   
+    })
 
-        await page.pause()       
+    test('Login in the Telnyx website without email with valid data on the Main page', async ({ page }) => {
+        const mainPage = new MainPage(page)
+        const loginPage = new LoginPage(page)
+
+        const usersCreds = helper.getUsersCreds()
+        const blockedPassword = usersCreds.blockedCreditans.password
+
+        await mainPage.clickHeadLoginBtn()
+        
+        await loginPage.fillPasswordField(
+            blockedPassword
+        )
+        
+        await loginPage.clickLoginBtn()
+
+        await expect(loginPage.reqErrorMsg).toBeVisible()
     })
 })
