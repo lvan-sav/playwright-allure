@@ -1,8 +1,9 @@
-import { test, expect } from '@playwright/test';
-import { faker } from '@faker-js/faker'
-import { MainPage } from '../pageobjects/main.page'
+import { test, expect, Page } from '@playwright/test';
+import { faker } from '@faker-js/faker';
+import helper from '../helper/helper';
+import { MainPage } from '../pageobjects/main.page';
 import { SignUpPage, VerifyEmailPage } from '../pageobjects/sign.up.pages';
-
+import { LoginPage, ResetPasswordPage } from '../pageobjects/log.in.pages';
 
 test.beforeEach(async ({ page }) => {
     const mainPage = new MainPage(page)
@@ -63,4 +64,26 @@ test.describe('Sign up, "Contact Us" and "Report Abuse" cases', () => {
         await expect(signUpPage.formErrorMsg).toBeVisible()
         await expect(signUpPage.formErrorMsg).toHaveText(/^One or more fields are not valid. Please update these fields and try again/)        
     });
+
+    test.only('Login in the Telnyx website with blocked account with valid data on the Main page', async ({ page }) => {
+        const mainPage = new MainPage(page)
+        const loginPage = new LoginPage(page)
+        
+        const usersCreds = helper.getUsersCreds()
+        const blockedEmail = usersCreds.blockedCreditans.email
+        const blockedPassword = usersCreds.blockedCreditans.password
+
+        await mainPage.clickHeadLoginBtn()
+        
+        await loginPage.fillRequiredFields(
+            blockedEmail,
+            blockedPassword
+        )
+
+        await loginPage.clickLoginBtn()
+
+        await expect(loginPage.accBlockErrorMsg).toBeVisible()
+
+        await page.pause()       
+    })
 })

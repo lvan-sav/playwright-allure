@@ -3,4 +3,3 @@ node_modules/
 /playwright-report/
 /playwright/.cache/
 tests-examples/
-helper/helper.ts
