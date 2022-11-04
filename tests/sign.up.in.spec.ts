@@ -90,12 +90,30 @@ test.describe('Sign up, "Contact Us" and "Report Abuse" cases', () => {
         const loginPage = new LoginPage(page)
 
         const usersCreds = helper.getUsersCreds()
-        const blockedPassword = usersCreds.blockedCreditans.password
+        const password = usersCreds.blockedCreditans.password
 
         await mainPage.clickHeadLoginBtn()
         
         await loginPage.fillPasswordField(
-            blockedPassword
+            password
+        )
+        
+        await loginPage.clickLoginBtn()
+
+        await expect(loginPage.reqErrorMsg).toBeVisible()
+    })
+
+    test('Login in the Telnyx website without password with valid data on the Main page', async ({ page }) => {
+        const mainPage = new MainPage(page)
+        const loginPage = new LoginPage(page)
+
+        const usersCreds = helper.getUsersCreds()
+        const email = usersCreds.blockedCreditans.email
+
+        await mainPage.clickHeadLoginBtn()
+        
+        await loginPage.fillEmailField(
+            email
         )
         
         await loginPage.clickLoginBtn()

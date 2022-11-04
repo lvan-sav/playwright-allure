@@ -43,6 +43,12 @@ export class LoginPage extends BasePage {
         )
     }
 
+    async fillEmailField(email: string) {
+        return await this.fillFields(
+            email
+        )
+    }
+
     async clickForgotPasswordLink() {
         await this.page.locator(forgotPassLinkLoc).click()
     }
