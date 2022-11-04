@@ -12,7 +12,7 @@ test.beforeEach(async ({ page }) => {
     await mainPage.closeCookiePopup()
 })
 
-test.describe('Sign up, "Contact Us" and "Report Abuse" cases', () => {
+test.describe('Sign up, sign in and forgot password cases', () => {
     test('Sign up after click "Try it for free" button on the main page by\
  filling in in required fields with random valid data', async ({ page }) => {
         const mainPage = new MainPage(page)
@@ -119,5 +119,24 @@ test.describe('Sign up, "Contact Us" and "Report Abuse" cases', () => {
         await loginPage.clickLoginBtn()
 
         await expect(loginPage.reqErrorMsg).toBeVisible()
+    })
+
+    test('Reset password by the "Forgot your password" link on the Log in page', async ({ page }) => {
+        const mainPage = new MainPage(page)
+        const loginPage = new LoginPage(page)
+        const resetPassPage = new ResetPasswordPage(page)
+
+        const usersCreds = helper.getUsersCreds()
+        const email = usersCreds.blockedCreditans.email
+
+        await mainPage.clickHeadLoginBtn()
+
+        await loginPage.clickForgotPasswordLink()
+
+        await resetPassPage.fillEmailField(email)
+        await resetPassPage.clickResetPassBtn()
+
+        await expect(loginPage.emailField).toBeEmpty()
+        await expect(loginPage.passwordField).toBeEmpty()
     })
 })

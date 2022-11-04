@@ -11,8 +11,13 @@ const loginBtn = '[aria-label="loginForm"] button'
 const accBlockErrorMsgLoc = 'div:has-text("Your account has been blocked. Please contact Telnyx support for information reg") >> nth=4'
 const reqErrorMsgLoc = '[class*="TextField__ErrorMessage"]'
 
+const forgotEmailInpLoc = '[class*="PasswordResetForm"] [name="email"]'
+const resetPassBtnLoc = 'button[type="submit"]'
+
 export class LoginPage extends BasePage {
 
+    emailField: Locator = this.page.locator(emailInpLoc)
+    passwordField: Locator = this.page.locator(passwordInpLoc)
     accBlockErrorMsg: Locator = this.page.locator(accBlockErrorMsgLoc)
     reqErrorMsg: Locator = this.page.locator(reqErrorMsgLoc)
 
@@ -62,6 +67,15 @@ export class LoginPage extends BasePage {
     }
 }
 
-export class ResetPasswordPage extends LoginPage {
+export class ResetPasswordPage extends BasePage {
 
+    emailInp: Locator = this.page.locator(forgotEmailInpLoc)
+
+    async fillEmailField(email: string) {
+        await this.emailInp.fill(email)
+    }
+
+    async clickResetPassBtn() {
+        await this.page.locator(resetPassBtnLoc).click()
+    }
 }
