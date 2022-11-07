@@ -10,7 +10,9 @@ const addInfoInpLoc = '#Form_Additional_Information__c'
 const receiveEmailBoxLoc = '#LblSubscription_Opt_In__c:last-child'
 const submitBtnLoc = '[type="submit"]'
 
-export class CompanyIntegrationsPage extends BasePage {
+const becomePartnerFormLoc = '#become-a-partner'
+
+class CompanyFormBase extends BasePage {
 
     readonly firstNameInp = this.page.locator(firstNameInpLoc);
     readonly lastNameInp = this.page.locator(lastNameInpLoc);
@@ -20,12 +22,8 @@ export class CompanyIntegrationsPage extends BasePage {
     readonly addInfoInp = this.page.locator(addInfoInpLoc);
     readonly receiveEmailBox = this.page.locator(receiveEmailBoxLoc);
     readonly submitBtn = this.page.locator(submitBtnLoc);
-
-    async scrollToTesterForm () {
-        await this.page.locator(becomeTesterFormLoc).scrollIntoViewIfNeeded()
-    }
-
-    async fillTesterForm(
+    
+    async fillForm(
         firstName?: string,
         lastName?: string,
         email?: string,
@@ -46,6 +44,18 @@ export class CompanyIntegrationsPage extends BasePage {
     }
 }
 
-export class CompanyPartnersPage extends BasePage {
+export class CompanyIntegrationsPage extends CompanyFormBase {
 
+
+    async scrollToTesterForm () {
+        await this.page.locator(becomeTesterFormLoc).scrollIntoViewIfNeeded()
+    }
+
+}
+
+export class CompanyPartnersPage extends CompanyFormBase {
+
+    async scrollToPartnerForm () {
+        await this.page.locator(becomePartnerFormLoc).scrollIntoViewIfNeeded()
+    }
 }

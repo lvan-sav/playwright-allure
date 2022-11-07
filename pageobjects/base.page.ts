@@ -8,6 +8,7 @@ const headLoginBtnLoc = 'header'
 const headPricingDrpDownLoc = 'header li:nth-child(10)'
 const headCompanyDrpDownLoc = 'header li:nth-child(8)'
 const headIntegrationsBtnLoc = 'header [href="/integrations"]'
+const headPartnersBtnLoc = 'header [href="/company/partnerships"]'
 const headSipTrunkPriceBtnLoc = 'header [href="/pricing/elastic-sip"]'
 const headMsgPriceBtnLoc = 'header [href="/pricing/messaging"]'
 
@@ -63,6 +64,13 @@ export class BasePage {
 
         await headIntegrationsBtn.hover()
         await headIntegrationsBtn.click()
+    }
+
+    async clickPartnersBtn() {
+        const headPartnersBtn: Locator = this.page.locator(headPartnersBtnLoc)
+
+        await headPartnersBtn.hover()
+        await headPartnersBtn.click()
     }
 
     async clickFootReportAbuseLink () {

@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker'
 import { MainPage } from '../pageobjects/main.page'
-import { CompanyIntegrationsPage, } from '../pageobjects/company.pages'
+import { CompanyIntegrationsPage, CompanyPartnersPage, } from '../pageobjects/company.pages'
 
 
 test.beforeEach(async ({ page }) => {
@@ -32,7 +32,7 @@ test.describe('Become to a cooperation with Telnyx team', () => {
 
         const addInfo = faker.lorem.lines(1)
 
-        await companyIntegrationPage.fillTesterForm(
+        await companyIntegrationPage.fillForm(
             firstName,
             lastName,
             email,
@@ -48,5 +48,43 @@ test.describe('Become to a cooperation with Telnyx team', () => {
         await expect(companyIntegrationPage.addInfoInp).toHaveValue(addInfo)
         await expect(companyIntegrationPage.receiveEmailBox).toBeChecked()
         await expect(companyIntegrationPage.submitBtn).toBeEnabled()
+    })
+
+    test('Go to the Partners page and become a Telnyx Partner by filling\
+ in the all fields with random valid data', async ({ page }) => {
+        const mainPage = new MainPage(page)
+        const companyPartnersPage = new CompanyPartnersPage(page)
+
+        await mainPage.hoverCompanyDropdown()
+        await mainPage.clickPartnersBtn()
+
+        await companyPartnersPage.scrollToPartnerForm()
+
+        const firstName = faker.name.firstName()
+        const lastName = faker.name.lastName()
+        const email = faker.internet.email()
+        
+        const caseInSum = companyPartnersPage.useCaseOptCount
+        const randCodeCount = Math.floor(Math.random() * caseInSum) + 1
+        const selectedCode = await companyPartnersPage.getCaseOpt(randCodeCount)
+
+        const addInfo = faker.lorem.lines(1)
+
+        await companyPartnersPage.fillForm(
+            firstName,
+            lastName,
+            email,
+            randCodeCount,
+            addInfo,
+            true
+        )
+
+        await expect(companyPartnersPage.firstNameInp).toHaveValue(firstName)
+        await expect(companyPartnersPage.lastNameInp).toHaveValue(lastName)
+        await expect(companyPartnersPage.emailInp).toHaveValue(email)
+        await expect(companyPartnersPage.useCaseSelector).toHaveValue(selectedCode)
+        await expect(companyPartnersPage.addInfoInp).toHaveValue(addInfo)
+        await expect(companyPartnersPage.receiveEmailBox).toBeChecked()
+        await expect(companyPartnersPage.submitBtn).toBeEnabled()
     })
 })
