@@ -6,6 +6,8 @@ const cookiePopupClsBtn = 'button[aria-label="close and deny"]'
 const talkToExpertsBtnLoc = 'header li [href="/contact-us"]'
 const headLoginBtnLoc = 'header'
 const headPricingDrpDownLoc = 'header li:nth-child(10)'
+const headCompanyDrpDownLoc = 'header li:nth-child(8)'
+const headIntegrationsBtnLoc = 'header [href="/integrations"]'
 const headSipTrunkPriceBtnLoc = 'header [href="/pricing/elastic-sip"]'
 const headMsgPriceBtnLoc = 'header [href="/pricing/messaging"]'
 
@@ -56,11 +58,24 @@ export class BasePage {
         await headMsgPriceBtn.click()
     }
 
+    async clickIntegrationsBtn() {
+        const headIntegrationsBtn: Locator = this.page.locator(headIntegrationsBtnLoc)
+
+        await headIntegrationsBtn.hover()
+        await headIntegrationsBtn.click()
+    }
+
     async clickFootReportAbuseLink () {
         const footerReportAbuseLink: Locator = this.page.locator(footerReportAbuseLinkLoc)
 
         await footerReportAbuseLink.hover()
         await footerReportAbuseLink.click()
+    }
+
+    async hoverCompanyDropdown() {
+        const headCompanyDrpDown: Locator = this.page.locator(headCompanyDrpDownLoc)
+
+        await headCompanyDrpDown.hover()
     }
 
     async hoverPricingDropdown () {
