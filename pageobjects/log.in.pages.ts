@@ -16,10 +16,10 @@ const resetPassBtnLoc = 'button[type="submit"]'
 
 export class LoginPage extends BasePage {
 
-    emailField: Locator = this.page.locator(emailInpLoc)
-    passwordField: Locator = this.page.locator(passwordInpLoc)
-    accBlockErrorMsg: Locator = this.page.locator(accBlockErrorMsgLoc)
-    reqErrorMsg: Locator = this.page.locator(reqErrorMsgLoc)
+    readonly emailField: Locator = this.page.locator(emailInpLoc)
+    readonly passwordField: Locator = this.page.locator(passwordInpLoc)
+    readonly accBlockErrorMsg: Locator = this.page.locator(accBlockErrorMsgLoc)
+    readonly reqErrorMsg: Locator = this.page.locator(reqErrorMsgLoc)
 
     async fillFields(
         email?: string,
