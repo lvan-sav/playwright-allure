@@ -30,4 +30,23 @@ test.describe('Download and send pricing CSV file to the email from pricing page
         await expect(sipTrunkingPricePage.thankDownloadMsg).toBeVisible()
         await expect(sipTrunkingPricePage.thankDownloadMsg).toHaveText("Thank you. We'll email you pricing right away!")
     })
+
+    test('Download SMS pricing CSV file from the Messaging pricing page ', async ({ page }) => {
+        const mainPage = new MainPage(page)
+        const msgPricePage = new MsgPricePage(page)
+
+        await mainPage.hoverPricingDropdown()
+        await mainPage.clickSmsApiPriceBtn()
+
+        await msgPricePage.scrollToDownloadForm()
+        await msgPricePage.fillDownloadForm(
+            faker.name.firstName(),
+            faker.name.lastName(),
+            faker.internet.email()
+        )
+        await msgPricePage.clickDownloadBtn()
+
+        await expect(msgPricePage.thankDownloadMsg).toBeVisible()
+        await expect(msgPricePage.thankDownloadMsg).toHaveText("Thank you. We'll email you pricing right away!")
+    })
 })

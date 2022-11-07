@@ -7,6 +7,7 @@ const talkToExpertsBtnLoc = 'header li [href="/contact-us"]'
 const headLoginBtnLoc = 'header'
 const headPricingDrpDownLoc = 'header li:nth-child(10)'
 const headSipTrunkPriceBtnLoc = 'header [href="/pricing/elastic-sip"]'
+const headMsgPriceBtnLoc = 'header [href="/pricing/messaging"]'
 
 const footerReportAbuseLinkLoc = 'footer [href="/report-abuse"]'
 
@@ -46,6 +47,13 @@ export class BasePage {
         const headSipTrunkPriceBtn: Locator = this.page.locator(headSipTrunkPriceBtnLoc)
 
         await headSipTrunkPriceBtn.click()
+    }
+
+    async clickSmsApiPriceBtn() {
+        const headMsgPriceBtn: Locator = this.page.locator(headMsgPriceBtnLoc)
+
+        await headMsgPriceBtn.hover()
+        await headMsgPriceBtn.click()
     }
 
     async clickFootReportAbuseLink () {
