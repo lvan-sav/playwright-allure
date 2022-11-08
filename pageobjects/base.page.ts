@@ -7,10 +7,13 @@ const talkToExpertsBtnLoc = 'header li [href="/contact-us"]'
 const headLoginBtnLoc = 'header'
 const headPricingDrpDownLoc = 'header li:nth-child(10)'
 const headCompanyDrpDownLoc = 'header li:nth-child(8)'
+const headResourcesDrpDownLoc = 'header li:nth-child(6)'
+
 const headIntegrationsBtnLoc = 'header [href="/integrations"]'
 const headPartnersBtnLoc = 'header [href="/company/partnerships"]'
 const headSipTrunkPriceBtnLoc = 'header [href="/pricing/elastic-sip"]'
 const headMsgPriceBtnLoc = 'header [href="/pricing/messaging"]'
+const headSavingCalcBtnLoc = 'header [href="/twilio-pricing-calculator"]'
 
 const footerReportAbuseLinkLoc = 'footer [href="/report-abuse"]'
 
@@ -73,11 +76,24 @@ export class BasePage {
         await headPartnersBtn.click()
     }
 
+    async clickSavingCalculatorBtn() {
+        const headSavingCalcBtn: Locator = this.page.locator(headSavingCalcBtnLoc)
+
+        await headSavingCalcBtn.click()
+    }
+
     async clickFootReportAbuseLink () {
         const footerReportAbuseLink: Locator = this.page.locator(footerReportAbuseLinkLoc)
 
         await footerReportAbuseLink.hover()
         await footerReportAbuseLink.click()
+    }
+
+    async hoverResourcesDropdown () {
+        const headResourcesDrpDown: Locator = this.page.locator(headResourcesDrpDownLoc)
+        
+        await headResourcesDrpDown.hover()
+        await headResourcesDrpDown.click()
     }
 
     async hoverCompanyDropdown() {
@@ -90,5 +106,9 @@ export class BasePage {
         const headPricingDrpDown: Locator = this.page.locator(headPricingDrpDownLoc);
 
         await headPricingDrpDown.hover()
+    }
+
+    randomNumber(till: number) {
+        return Math.ceil(Math.random() * till)
     }
 }
