@@ -13,6 +13,7 @@ const headIntegrationsBtnLoc = 'header [href="/integrations"]'
 const headPartnersBtnLoc = 'header [href="/company/partnerships"]'
 const headSipTrunkPriceBtnLoc = 'header [href="/pricing/elastic-sip"]'
 const headMsgPriceBtnLoc = 'header [href="/pricing/messaging"]'
+const headBlogBtnLoc = 'header [href="/resources"]'
 const headSavingCalcBtnLoc = 'header [href="/twilio-pricing-calculator"]'
 
 const footerReportAbuseLinkLoc = 'footer [href="/report-abuse"]'
@@ -74,6 +75,13 @@ export class BasePage {
 
         await headPartnersBtn.hover()
         await headPartnersBtn.click()
+    }
+
+    async clickBlogBtn() {
+        const headBlogBtn: Locator = this.page.locator(headBlogBtnLoc)
+
+        await headBlogBtn.hover()
+        await headBlogBtn.click()
     }
 
     async clickSavingCalculatorBtn() {
