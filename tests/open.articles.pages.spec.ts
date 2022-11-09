@@ -1,6 +1,7 @@
 import { test, expect, Page } from '@playwright/test';
 import { BlogPage } from '../pageobjects/articles.pages';
-import { MainPage } from '../pageobjects/main.page'
+import { SupportPage, SupportArticlePage } from '../pageobjects/support.articles.pages';
+import { MainPage } from '../pageobjects/main.page';
 
 
 test.beforeEach(async ({ page }) => {
@@ -23,5 +24,25 @@ test.describe('Open additional pages in the Telnyx website', () => {
         await blogPage.searchArticle()
 
         await expect(blogPage.firstArticle).toHaveText(randomArticleTitle)
+    })
+
+    test('Go to the "Programmable Wireless Reporting and Analytics" support article from the Main page', async ({ page }) => {
+        const mainPage = new MainPage(page)
+        const supportPage = new SupportPage(page)
+        const supportArticlePage = new SupportArticlePage(page)
+
+        await mainPage.clickSupportCenterlink()
+
+        await supportPage.fillSearchField('Programmable Wireless Reporting and Analytics')
+        await supportPage.searchArticle()
+        await supportPage.clickFirtsArticle()
+
+        await expect(supportArticlePage.lastBreadcrumbItem).toHaveText('Programmable Wireless Reporting and Analytics')
+        await expect(supportArticlePage.articleTitle).toHaveText('Programmable Wireless Reporting and Analytics')
+        await expect(supportArticlePage.articleAuthor).toHaveText(/Telnyx Engineering/)
+        await expect(supportArticlePage.reactionPicker).toBeVisible()
+        await expect(supportArticlePage.reactionDissapointed).toBeEnabled()
+        await expect(supportArticlePage.reactionNeutral).toBeEnabled()
+        await expect(supportArticlePage.reactionSmiley).toBeEnabled()
     })
 })
