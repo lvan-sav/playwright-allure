@@ -1,5 +1,5 @@
 import { test, expect, Page } from '@playwright/test';
-import { BlogPage, DocsPage } from '../pageobjects/articles.pages';
+import { BlogPage, DocsPage, UseCasePage } from '../pageobjects/articles.pages';
 import { SupportPage, SupportArticlePage } from '../pageobjects/support.articles.pages';
 import { MainPage } from '../pageobjects/main.page';
 
@@ -46,7 +46,7 @@ test.describe('Open additional pages in the Telnyx website', () => {
         await expect(supportArticlePage.reactionSmiley).toBeEnabled()
     })
 
-    test.only('Go to the "TeXML" doc page from the main page', async ({ page }) => {
+    test('Go to the "TeXML" doc page from the main page', async ({ page }) => {
         const mainPAge = new MainPage(page)
         const docsPage = new DocsPage(page)
 
@@ -58,5 +58,17 @@ test.describe('Open additional pages in the Telnyx website', () => {
         await expect(docsPage.docsPageTitle).toHaveText(/TeXML/)
         await expect(docsPage.docsPageSubtitle).toHaveText('Dynamic Parameters for TeXML')
         await expect(docsPage.docsQuestionBlock).toHaveText('Was this page helpful?')
+    })
+
+    test('Go to the random Use Case article from the Main page', async ({ page }) => {
+        const mainPage = new MainPage(page)
+        const useCasePage = new UseCasePage(page)
+
+        await mainPage.hoverSolutionsDropdown()
+        await mainPage.clickAllUseCasesBtn()
+
+        const randomUseCaseTitle = await useCasePage.clickRandomUseCase()
+
+        await expect(useCasePage.useCaseArticleTitle).toHaveText(randomUseCaseTitle)
     })
 })

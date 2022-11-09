@@ -15,6 +15,11 @@ const docsPageTitleLoc = 'main h1'
 const docsPageSubtitleLoc = 'main h2 span:first-child'
 const docsQuestionBlockLoc = 'main > div:nth-child(3) > div > div'
 
+const useCaseBlockLoc = 'main [href*="/use-cases"]'
+const useCaseBlockTitleLoc = 'h3'
+const useCasePaginationNum = 20
+const useCaseArticleTitleLoc = 'main h1'
+
 export class BlogPage extends BasePage {
 
     readonly firstArticle: Locator = this.page.locator(`${anyArticleTitleLoc.firstHalf}1${anyArticleTitleLoc.secHalf}`)
@@ -59,6 +64,23 @@ export class DocsPage extends BasePage {
 
     async clickFirstPossobleResult() {
         await this.page.locator(`${possibleSearchResultsLoc}:nth-child(1)`).click()
+    }
+}
+
+export class UseCasePage extends BasePage {
+    
+    readonly useCaseArticleTitle: Locator = this.page.locator(useCaseArticleTitleLoc)
+
+    async clickRandomUseCase() {
+        const randomUseCase: Locator = this.page.locator(useCaseBlockLoc)
+        .nth(Math.floor(Math.random() * useCasePaginationNum - 1))
+
+        const useCaseBlockTitle = await randomUseCase
+        .locator(useCaseBlockTitleLoc)
+        .innerText()
+
+        await randomUseCase.click()
+        return useCaseBlockTitle
     }
 }
 

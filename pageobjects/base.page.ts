@@ -6,10 +6,12 @@ const cookiePopupClsBtn = 'button[aria-label="close and deny"]'
 const headSupportCenterLinkLoc = 'header [href*="support"]:nth-child(3)'
 const talkToExpertsBtnLoc = 'header li [href="/contact-us"]'
 const headLoginBtnLoc = 'header'
+const headSolutionsDrpDownLoc = 'header li:nth-child(3)'
 const headPricingDrpDownLoc = 'header li:nth-child(10)'
 const headCompanyDrpDownLoc = 'header li:nth-child(8)'
 const headResourcesDrpDownLoc = 'header li:nth-child(6)'
 
+const headAllUseCaseBtnLoc = '[href="/use-cases"]'
 const headIntegrationsBtnLoc = 'header [href="/integrations"]'
 const headPartnersBtnLoc = 'header [href="/company/partnerships"]'
 const headSipTrunkPriceBtnLoc = 'header [href="/pricing/elastic-sip"]'
@@ -58,6 +60,13 @@ export class BasePage {
         await headLoginBtn.click({ delay: 200 })
     }
 
+    async clickAllUseCasesBtn () {
+        const allUseCaseBtn: Locator = this.page.locator(headAllUseCaseBtnLoc)
+
+        await allUseCaseBtn.hover()
+        await allUseCaseBtn.click()
+    }
+
     async clickElasticSipPriceBtn () {
         const headSipTrunkPriceBtn: Locator = this.page.locator(headSipTrunkPriceBtnLoc)
 
@@ -103,6 +112,12 @@ export class BasePage {
 
         await footerReportAbuseLink.hover()
         await footerReportAbuseLink.click()
+    }
+
+    async hoverSolutionsDropdown () {
+        const headSolutionsDrpDown: Locator = this.page.locator(headSolutionsDrpDownLoc)
+
+        await headSolutionsDrpDown.hover()
     }
 
     async hoverResourcesDropdown () {
