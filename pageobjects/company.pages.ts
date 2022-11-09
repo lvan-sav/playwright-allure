@@ -12,6 +12,8 @@ const submitBtnLoc = '[type="submit"]'
 
 const becomePartnerFormLoc = '#become-a-partner'
 
+const exploreMarketBtnLoc = '//h1/..//*[contains(@href, "marketplace")]'
+
 class CompanyFormBase extends BasePage {
 
     readonly firstNameInp = this.page.locator(firstNameInpLoc);
@@ -46,6 +48,9 @@ class CompanyFormBase extends BasePage {
 
 export class CompanyIntegrationsPage extends CompanyFormBase {
 
+    async clickExploreMarketplaceBtn () {
+        await this.page.locator(exploreMarketBtnLoc).click()
+    }
 
     async scrollToTesterForm () {
         await this.page.locator(becomeTesterFormLoc).scrollIntoViewIfNeeded()

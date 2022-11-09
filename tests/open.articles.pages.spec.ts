@@ -2,6 +2,8 @@ import { test, expect, Page } from '@playwright/test';
 import { BlogPage, DocsPage, UseCasePage } from '../pageobjects/articles.pages';
 import { SupportPage, SupportArticlePage } from '../pageobjects/support.articles.pages';
 import { MainPage } from '../pageobjects/main.page';
+import { CompanyIntegrationsPage } from '../pageobjects/company.pages';
+import { MarketIntegrationPage, MarketplacePage } from '../pageobjects/marketplace.pages';
 
 
 test.beforeEach(async ({ page }) => {
@@ -70,5 +72,24 @@ test.describe('Open additional pages in the Telnyx website', () => {
         const randomUseCaseTitle = await useCasePage.clickRandomUseCase()
 
         await expect(useCasePage.useCaseArticleTitle).toHaveText(randomUseCaseTitle)
+    })
+
+    test.only('Go to the MS Teams integrations page in the marketplace from the Main page', async ({ page }) => {
+        const mainPage = new MainPage(page)
+        const companyIntegrationsPage = new CompanyIntegrationsPage(page)
+        const marketplacePage = new MarketplacePage(page)
+        const marketIntegrationPage = new MarketIntegrationPage(page)
+
+        await mainPage.hoverCompanyDropdown()
+        await mainPage.clickIntegrationsBtn()
+
+        await companyIntegrationsPage.clickExploreMarketplaceBtn()
+
+        await marketplacePage.fillSearchField('Teams')
+        await marketplacePage.clickFirstSearchResult()
+
+        await expect(marketIntegrationPage.integrationPageTitle).toHaveText(/Microsoft Teams/)
+        await expect(marketIntegrationPage.lastBreadcrumbItem).toHaveText('Microsoft Teams')
+        await expect(marketIntegrationPage.asideGetStartedBtn).toBeVisible()
     })
 })
