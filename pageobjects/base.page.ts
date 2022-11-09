@@ -3,6 +3,7 @@ import { Locator, Page } from '@playwright/test';
 
 const cookiePopupClsBtn = 'button[aria-label="close and deny"]'
 
+const headSupportCenterLinkLoc = 'header [href*="support"]:nth-child(3)'
 const talkToExpertsBtnLoc = 'header li [href="/contact-us"]'
 const headLoginBtnLoc = 'header'
 const headPricingDrpDownLoc = 'header li:nth-child(10)'
@@ -34,6 +35,13 @@ export class BasePage {
 
         await closeBtn.hover()
         await closeBtn.click({ force: true })
+    }
+
+    async clickSupportCenterlink () {
+        const supportCenterLink = this.page.locator(headSupportCenterLinkLoc)
+
+        await supportCenterLink.hover()
+        await supportCenterLink.click()
     }
 
     async clickHeadTalkToExpertBtn () {

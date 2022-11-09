@@ -7,7 +7,7 @@ const anyArticleTitleLoc = {
     secHalf: ') article h2'
 }
 const articlePaginationNum = 31
-const searchArticleInpLoc = '#search'
+const searchBlogArticleInpLoc = '#search'
 
 export class BlogPage extends BasePage {
 
@@ -27,7 +27,7 @@ export class BlogPage extends BasePage {
     }
 
     async fillSearchField(text: string){
-        await this.page.locator(searchArticleInpLoc).fill(text)
+        await this.page.locator(searchBlogArticleInpLoc).fill(text)
     }
 
     async fillSearchByRandomArticle() {
@@ -37,6 +37,7 @@ export class BlogPage extends BasePage {
     }
 
     async searchArticle(){
-        await this.page.locator(searchArticleInpLoc).press('Enter')
+        await this.page.locator(searchBlogArticleInpLoc).press('Enter')
     }
 }
+
