@@ -1,5 +1,5 @@
 import { test, expect, Page } from '@playwright/test';
-import { BlogPage } from '../pageobjects/articles.pages';
+import { BlogPage, DocsPage } from '../pageobjects/articles.pages';
 import { SupportPage, SupportArticlePage } from '../pageobjects/support.articles.pages';
 import { MainPage } from '../pageobjects/main.page';
 
@@ -44,5 +44,19 @@ test.describe('Open additional pages in the Telnyx website', () => {
         await expect(supportArticlePage.reactionDissapointed).toBeEnabled()
         await expect(supportArticlePage.reactionNeutral).toBeEnabled()
         await expect(supportArticlePage.reactionSmiley).toBeEnabled()
+    })
+
+    test.only('Go to the "TeXML" doc page from the main page', async ({ page }) => {
+        const mainPAge = new MainPage(page)
+        const docsPage = new DocsPage(page)
+
+        await mainPAge.clickLearnMoreLink()
+
+        await docsPage.fillSearchField('TeXML')
+        await docsPage.clickFirstPossobleResult()
+
+        await expect(docsPage.docsPageTitle).toHaveText(/TeXML/)
+        await expect(docsPage.docsPageSubtitle).toHaveText('Dynamic Parameters for TeXML')
+        await expect(docsPage.docsQuestionBlock).toHaveText('Was this page helpful?')
     })
 })
