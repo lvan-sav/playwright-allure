@@ -74,7 +74,7 @@ test.describe('Open additional pages in the Telnyx website', () => {
         await expect(useCasePage.useCaseArticleTitle).toHaveText(randomUseCaseTitle)
     })
 
-    test.only('Go to the MS Teams integrations page in the marketplace from the Main page', async ({ page }) => {
+    test('Go to the MS Teams integrations page in the marketplace from the Main page', async ({ page }) => {
         const mainPage = new MainPage(page)
         const companyIntegrationsPage = new CompanyIntegrationsPage(page)
         const marketplacePage = new MarketplacePage(page)
