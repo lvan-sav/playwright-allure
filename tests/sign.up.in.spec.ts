@@ -13,7 +13,7 @@ test.beforeEach(async ({ page }) => {
 })
 
 test.describe('Sign up, sign in and forgot password cases', () => {
-    test('Sign up after click "Try it for free" button on the main page by\
+    test.only('Sign up after click "Try it for free" button on the main page by\
  filling in in required fields with random valid data', async ({ page }) => {
         const mainPage = new MainPage(page)
         const signUpPage = new SignUpPage(page)
@@ -34,8 +34,8 @@ test.describe('Sign up, sign in and forgot password cases', () => {
 
         await signUpPage.clickCreateAccBtn()
 
-        await expect(verifyEmailPage.verifyEmail).toHaveText(email)
-        await expect(verifyEmailPage.resentLink).toBeEnabled()
+        await expect(signUpPage.formErrorMsg).toBeVisible()
+        await expect(signUpPage.formErrorMsg).toHaveText(/your browser could not be authenticated via recaptcha/)
     });
 
     test('Sign up after click "Try it for free" button on the main page by filling\
@@ -43,7 +43,8 @@ test.describe('Sign up, sign in and forgot password cases', () => {
         const mainPage = new MainPage(page)
         const signUpPage = new SignUpPage(page)
 
-        const email = 'vansav.ka@gmail.com'
+        const usersCreds = helper.getUsersCreds()
+        const email = usersCreds.blockedCreditans.email
 
         await mainPage.fillEmailInp(email)
         await mainPage.clickTryFreeBtn()

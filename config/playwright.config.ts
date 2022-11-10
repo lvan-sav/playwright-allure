@@ -4,14 +4,14 @@ import { devices } from '@playwright/test';
 
 const config: PlaywrightTestConfig = {
   testDir: '../tests',
-  timeout: 50 * 1000,
+  timeout: 3 * 60 * 1000,
   expect: {
-    timeout: 50000
+    timeout: 60 * 1000
   },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: 2,
-  workers: 8,
+  workers: 3,
   reporter: [
     ['list'],
     ['allure-playwright']
@@ -37,14 +37,6 @@ const config: PlaywrightTestConfig = {
       name: 'firefox',
       use: {
         ...devices['Desktop Firefox'],
-        viewport: { width: 1920, height: 1080 },
-        video: 'on-first-retry',
-      },
-    },
-    {
-      name: 'webkit',
-      use: {
-        ...devices['Desktop Safari'],
         viewport: { width: 1920, height: 1080 },
         video: 'on-first-retry',
       },

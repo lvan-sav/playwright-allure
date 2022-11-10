@@ -15,6 +15,8 @@ const webkitConfig: PlaywrightTestConfig = {
               ...devices['Desktop Safari'],
               viewport: { width: 1920, height: 1080 },
               video: 'on-first-retry',
+              actionTimeout: 240000,
+              navigationTimeout: 240000,
             },
           },
     ]

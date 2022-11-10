@@ -2,7 +2,7 @@ import { Locator } from '@playwright/test';
 import { BasePage } from "./base.page";
 
 
-//sign up page's locators
+
 const emailInpLoc = '#email'
 const nameInpLoc = '#full_name'
 const passInpLoc = '#password'
@@ -11,7 +11,7 @@ const receiveBoxLoc = '[for="subscription_opt_in"]'
 const createAccBtnLoc = 'button[type="submit"]'
 const emailErrorMsgLoc = '#email_error'
 const formErrorMsgLoc = '#signup-form_error'
-//verify email page's locators
+
 const verifyEmailLoc = '//h1/following-sibling::div//strong'
 const resendLinkLoc = 'main button'
 
