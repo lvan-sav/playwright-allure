@@ -12,6 +12,13 @@ test.beforeEach(async ({ page }) => {
     await mainPage.closeCookiePopup()
 })
 
+test.afterEach(async ({ page }, testInfo) => {
+    await testInfo.attach("basic-page-screen", {
+        body: await page.screenshot(),
+        contentType: "image/png"
+    })
+})
+
 test.describe('Sign up, sign in and forgot password cases', () => {
     test('Sign up after click "Try it for free" button on the main page by\
  filling in in required fields with random valid data', async ({ page }) => {
@@ -60,9 +67,7 @@ test.describe('Sign up, sign in and forgot password cases', () => {
         await signUpPage.clickCreateAccBtn()
         await signUpPage.clickCreateAccBtn()
 
-        await expect(signUpPage.emailErrorMsg).toBeVisible()
         await expect(signUpPage.emailErrorMsg).toHaveText(/^Another account already exists/)
-        await expect(signUpPage.formErrorMsg).toBeVisible()
         await expect(signUpPage.formErrorMsg).toHaveText(/^One or more fields are not valid. Please update these fields and try again/)        
     });
 

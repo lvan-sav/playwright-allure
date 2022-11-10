@@ -9,6 +9,7 @@
     "pw:firefox": "playwright test --config=config/firefox.config.ts",
     "pw:msedge": "playwright test --config=config/msedge.config.ts",
     "pw:webkit": "playwright test --config=config/webkit.config.ts",
+    "pw:test:headed": "playwright test --config=config/playwright.config.ts --headed",
     "allure:generate": "allure generate allure-results -o allure-report --clean",
     "allure:open": "allure open allure-report",
     "pw:install": "npx playwright install --with-deps && npx playwright install msedge"
