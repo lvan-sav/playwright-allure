@@ -13,7 +13,7 @@ test.beforeEach(async ({ page }) => {
 })
 
 test.describe('Sign up, sign in and forgot password cases', () => {
-    test.only('Sign up after click "Try it for free" button on the main page by\
+    test('Sign up after click "Try it for free" button on the main page by\
  filling in in required fields with random valid data', async ({ page }) => {
         const mainPage = new MainPage(page)
         const signUpPage = new SignUpPage(page)
