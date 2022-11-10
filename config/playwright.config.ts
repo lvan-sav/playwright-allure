@@ -11,10 +11,10 @@ const config: PlaywrightTestConfig = {
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: 2,
-  workers: process.env.CI ? 3 : undefined,
+  workers: 4,
   reporter: [
     ['list'],
-    ['null']
+    ['allure-playwright']
   ],
   use: {
     viewport: { width: 1920, height: 1080 },
