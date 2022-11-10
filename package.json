@@ -15,7 +15,9 @@
   "keywords": [
     "playwright",
     "allure",
-    "autotest"
+    "autotest",
+    "typescript",
+    "javascript"
   ],
   "author": "IS",
   "license": "ISC",

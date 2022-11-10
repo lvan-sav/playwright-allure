@@ -11,7 +11,7 @@ const config: PlaywrightTestConfig = {
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: 2,
-  workers: 4,
+  workers: 8,
   reporter: [
     ['list'],
     ['allure-playwright']
