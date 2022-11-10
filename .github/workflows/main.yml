@@ -16,7 +16,11 @@ jobs:
       with:
         node-version: '14'
         cache: 'npm'
-    - run: npm ci
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Playwright browsers
+      run: npm run pw:install
+    - name: Run tests
     - run: npm run pw:test
   
     - uses: actions/upload-artifact@master
